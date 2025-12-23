@@ -67,12 +67,24 @@
             <span class="text-sm font-medium text-gray-500 dark:text-text-secondary">Scientific</span>
         </div>
         <div class="flex items-center gap-4 px-2">
-            <span
+            <span id="history-toggle"
                 class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">history</span>
             <span id="theme-toggle"
                 class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">settings</span>
         </div>
     </header>
+
+    <!-- History Panel -->
+    <div id="history-panel"
+        class="fixed inset-y-0 right-0 w-80 bg-white dark:bg-surface-dark shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
+        <div class="p-6 border-b border-gray-200 dark:border-surface-darker flex items-center justify-between">
+            <h2 class="text-xl font-semibold">History</h2>
+            <button id="clear-history" class="text-sm text-primary hover:text-blue-600">Clear All</button>
+        </div>
+        <div id="history-list" class="flex-1 overflow-y-auto p-4 space-y-2">
+            <p class="text-center text-gray-400 dark:text-text-secondary py-8">No history yet</p>
+        </div>
+    </div>
     <!-- Display Area -->
     <section class="flex-1 flex flex-col justify-end items-end px-6 pb-6 relative w-full max-w-md mx-auto">
         <!-- Equation/History -->
@@ -188,6 +200,93 @@
         const equationDisplay = document.getElementById('equation');
         const themeToggle = document.getElementById('theme-toggle');
         const angleModeBtn = document.getElementById('angle-mode');
+        const historyToggle = document.getElementById('history-toggle');
+        const historyPanel = document.getElementById('history-panel');
+        const historyList = document.getElementById('history-list');
+        const clearHistoryBtn = document.getElementById('clear-history');
+
+        // History Management
+        let history = [];
+        const MAX_HISTORY = 50;
+
+        // Load history from localStorage
+        function loadHistory() {
+            const saved = localStorage.getItem('calculator-history');
+            if (saved) {
+                try {
+                    history = JSON.parse(saved);
+                    updateHistoryDisplay();
+                } catch (e) {
+                    history = [];
+                }
+            }
+        }
+
+        // Save history to localStorage
+        function saveHistory() {
+            localStorage.setItem('calculator-history', JSON.stringify(history));
+        }
+
+        // Add to history
+        function addToHistory(equation, result) {
+            const item = {
+                id: Date.now(),
+                equation: equation,
+                result: result,
+                timestamp: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+            };
+            history.unshift(item);
+            if (history.length > MAX_HISTORY) {
+                history.pop();
+            }
+            saveHistory();
+            updateHistoryDisplay();
+        }
+
+        // Update history display
+        function updateHistoryDisplay() {
+            if (history.length === 0) {
+                historyList.innerHTML = '<p class="text-center text-gray-400 dark:text-text-secondary py-8">No history yet</p>';
+                return;
+            }
+
+            historyList.innerHTML = history.map(item => `
+                <div class="bg-gray-50 dark:bg-surface-darker rounded-lg p-3 hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors cursor-pointer" data-history-id="${item.id}">
+                    <div class="text-xs text-gray-400 dark:text-text-secondary mb-1">${item.timestamp}</div>
+                    <div class="text-sm text-gray-600 dark:text-text-secondary">${item.equation}</div>
+                    <div class="text-lg font-semibold text-slate-900 dark:text-white">${item.result}</div>
+                </div>
+            `).join('');
+
+            // Add click handlers to history items
+            document.querySelectorAll('[data-history-id]').forEach(item => {
+                item.addEventListener('click', () => {
+                    const historyItem = history.find(h => h.id == item.dataset.historyId);
+                    if (historyItem) {
+                        currentValue = historyItem.result.replace(/,/g, '');
+                        updateDisplay();
+                        toggleHistoryPanel();
+                    }
+                });
+            });
+        }
+
+        // Toggle history panel
+        function toggleHistoryPanel() {
+            historyPanel.classList.toggle('translate-x-full');
+        }
+
+        // Clear history
+        clearHistoryBtn.addEventListener('click', () => {
+            if (confirm('Clear all history?')) {
+                history = [];
+                saveHistory();
+                updateHistoryDisplay();
+            }
+        });
+
+        // History toggle button
+        historyToggle.addEventListener('click', toggleHistoryPanel);
 
         // Format number with commas
         function formatNumber(num) {
@@ -245,6 +344,9 @@
             if (isNaN(prev) || isNaN(current)) return;
 
             let result;
+            let opSymbol = operation === '*' ? '×' : operation === '/' ? '÷' : operation;
+            const equation = `${formatNumber(previousValue)} ${opSymbol} ${formatNumber(currentValue)}`;
+
             switch (operation) {
                 case '+':
                     result = prev + current;
@@ -267,6 +369,10 @@
             }
 
             currentValue = result.toString();
+
+            // Add to history
+            addToHistory(equation, formatNumber(currentValue));
+
             operation = null;
             previousValue = '';
             equationDisplay.textContent = '';
@@ -376,6 +482,7 @@
         });
 
         // Initialize
+        loadHistory();
         updateDisplay();
     </script>
 </body>
