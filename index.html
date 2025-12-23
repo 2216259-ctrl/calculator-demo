@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="ko"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>기본 계산기</title>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+<html class="dark" lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>공학용 계산기</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -38,102 +41,343 @@
             },
         }
     </script>
-<style>
-        /* Custom scrollbar for scientific row if needed on very small screens */
+    <style>
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-background-light dark:bg-background-dark font-display h-screen flex flex-col overflow-hidden select-none text-slate-900 dark:text-white antialiased">
-<!-- Top Bar / Header -->
-<header class="flex items-center justify-between p-4 pt-10 pb-2 z-10">
-<div class="flex items-center gap-2 px-2">
-<span class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">menu</span>
-<span class="text-sm font-medium text-gray-500 dark:text-text-secondary">Scientific</span>
-</div>
-<div class="flex items-center gap-4 px-2">
-<span class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">history</span>
-<span class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">settings</span>
-</div>
-</header>
-<!-- Display Area -->
-<section class="flex-1 flex flex-col justify-end items-end px-6 pb-6 relative w-full max-w-md mx-auto">
-<!-- Equation/History -->
-<div class="w-full text-right mb-2 opacity-100 transition-opacity">
-<p class="text-gray-500 dark:text-text-secondary text-xl font-normal tracking-wide">1200 + 34.56</p>
-</div>
-<!-- Main Result -->
-<div class="w-full text-right">
-<h1 class="text-6xl font-bold tracking-tight text-slate-900 dark:text-white break-all leading-tight">1,234.56</h1>
-</div>
-</section>
-<!-- Keypad Area -->
-<section class="bg-white dark:bg-background-dark w-full rounded-t-[32px] shadow-[0_-4px_20px_rgba(0,0,0,0.05)] dark:shadow-none pb-8 pt-4 px-4 max-w-md mx-auto">
-<!-- Toggle Bar for History/Keypad (Visual Only) -->
-<div class="w-12 h-1 bg-gray-200 dark:bg-surface-dark rounded-full mx-auto mb-6"></div>
-<!-- Scientific Functions Grid -->
-<div class="grid grid-cols-5 gap-3 mb-4">
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">2nd</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">deg</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">sin</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">cos</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">tan</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">xʸ</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">log</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">ln</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">(</button>
-<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">)</button>
-</div>
-<!-- Main Numpad Grid -->
-<div class="grid grid-cols-4 gap-3">
-<!-- Row 1: Commands -->
-<button class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all">AC</button>
-<button class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center">
-<span class="material-symbols-outlined text-[24px]">exposure</span>
-</button>
-<button class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center">
-<span class="material-symbols-outlined text-[24px]">percent</span>
-</button>
-<button class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
-<span class="text-3xl font-light pb-1">÷</span>
-</button>
-<!-- Row 2 -->
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">7</button>
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">8</button>
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">9</button>
-<button class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
-<span class="material-symbols-outlined text-[28px]">close</span>
-</button>
-<!-- Row 3 -->
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">4</button>
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">5</button>
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">6</button>
-<button class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
-<span class="material-symbols-outlined text-[28px]">remove</span>
-</button>
-<!-- Row 4 -->
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">1</button>
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">2</button>
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">3</button>
-<button class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
-<span class="material-symbols-outlined text-[28px]">add</span>
-</button>
-<!-- Row 5 -->
-<button class="col-span-2 h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white pl-8 text-left hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">0</button>
-<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">.</button>
-<button class="h-[72px] rounded-[20px] bg-primary shadow-lg shadow-blue-500/30 text-2xl font-semibold text-white hover:bg-blue-600 active:scale-95 transition-all flex items-center justify-center">
-<span class="material-symbols-outlined text-[32px]">equal</span>
-</button>
-</div>
-</section>
-</body></html>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display h-screen flex flex-col overflow-hidden select-none text-slate-900 dark:text-white antialiased">
+    <!-- Top Bar / Header -->
+    <header class="flex items-center justify-between p-4 pt-10 pb-2 z-10">
+        <div class="flex items-center gap-2 px-2">
+            <span
+                class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">menu</span>
+            <span class="text-sm font-medium text-gray-500 dark:text-text-secondary">Scientific</span>
+        </div>
+        <div class="flex items-center gap-4 px-2">
+            <span
+                class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">history</span>
+            <span id="theme-toggle"
+                class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">settings</span>
+        </div>
+    </header>
+    <!-- Display Area -->
+    <section class="flex-1 flex flex-col justify-end items-end px-6 pb-6 relative w-full max-w-md mx-auto">
+        <!-- Equation/History -->
+        <div class="w-full text-right mb-2 opacity-100 transition-opacity">
+            <p id="equation"
+                class="text-gray-500 dark:text-text-secondary text-xl font-normal tracking-wide min-h-[28px]"></p>
+        </div>
+        <!-- Main Result -->
+        <div class="w-full text-right">
+            <h1 id="result"
+                class="text-6xl font-bold tracking-tight text-slate-900 dark:text-white break-all leading-tight">0</h1>
+        </div>
+    </section>
+    <!-- Keypad Area -->
+    <section
+        class="bg-white dark:bg-background-dark w-full rounded-t-[32px] shadow-[0_-4px_20px_rgba(0,0,0,0.05)] dark:shadow-none pb-8 pt-4 px-4 max-w-md mx-auto">
+        <!-- Toggle Bar -->
+        <div class="w-12 h-1 bg-gray-200 dark:bg-surface-dark rounded-full mx-auto mb-6"></div>
+        <!-- Scientific Functions Grid -->
+        <div class="grid grid-cols-5 gap-3 mb-4">
+            <button data-action="2nd"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">2nd</button>
+            <button data-action="deg" id="angle-mode"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">deg</button>
+            <button data-function="sin"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">sin</button>
+            <button data-function="cos"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">cos</button>
+            <button data-function="tan"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">tan</button>
+            <button data-function="pow"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">x²</button>
+            <button data-function="log"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">log</button>
+            <button data-function="ln"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">ln</button>
+            <button data-value="("
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">(</button>
+            <button data-value=")"
+                class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">)</button>
+        </div>
+        <!-- Main Numpad Grid -->
+        <div class="grid grid-cols-4 gap-3">
+            <!-- Row 1: Commands -->
+            <button data-action="clear"
+                class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all">AC</button>
+            <button data-action="toggle-sign"
+                class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center">
+                <span class="material-symbols-outlined text-[24px]">exposure</span>
+            </button>
+            <button data-action="percent"
+                class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center">
+                <span class="material-symbols-outlined text-[24px]">percent</span>
+            </button>
+            <button data-operator="/"
+                class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
+                <span class="text-3xl font-light pb-1">÷</span>
+            </button>
+            <!-- Row 2 -->
+            <button data-number="7"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">7</button>
+            <button data-number="8"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">8</button>
+            <button data-number="9"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">9</button>
+            <button data-operator="*"
+                class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
+                <span class="material-symbols-outlined text-[28px]">close</span>
+            </button>
+            <!-- Row 3 -->
+            <button data-number="4"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">4</button>
+            <button data-number="5"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">5</button>
+            <button data-number="6"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">6</button>
+            <button data-operator="-"
+                class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
+                <span class="material-symbols-outlined text-[28px]">remove</span>
+            </button>
+            <!-- Row 4 -->
+            <button data-number="1"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">1</button>
+            <button data-number="2"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">2</button>
+            <button data-number="3"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">3</button>
+            <button data-operator="+"
+                class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
+                <span class="material-symbols-outlined text-[28px]">add</span>
+            </button>
+            <!-- Row 5 -->
+            <button data-number="0"
+                class="col-span-2 h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white pl-8 text-left hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">0</button>
+            <button data-action="decimal"
+                class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">.</button>
+            <button data-action="equals"
+                class="h-[72px] rounded-[20px] bg-primary shadow-lg shadow-blue-500/30 text-2xl font-semibold text-white hover:bg-blue-600 active:scale-95 transition-all flex items-center justify-center">
+                <span class="material-symbols-outlined text-[32px]">equal</span>
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // Calculator State
+        let currentValue = '0';
+        let previousValue = '';
+        let operation = null;
+        let angleMode = 'deg'; // deg, rad
+
+        // DOM Elements
+        const resultDisplay = document.getElementById('result');
+        const equationDisplay = document.getElementById('equation');
+        const themeToggle = document.getElementById('theme-toggle');
+        const angleModeBtn = document.getElementById('angle-mode');
+
+        // Format number with commas
+        function formatNumber(num) {
+            if (num === 'Error' || num === 'Infinity') return num;
+            const parts = num.toString().split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parts.join('.');
+        }
+
+        // Update display
+        function updateDisplay() {
+            resultDisplay.textContent = formatNumber(currentValue);
+        }
+
+        // Number button click
+        document.querySelectorAll('[data-number]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const num = btn.dataset.number;
+                if (currentValue === '0' || currentValue === 'Error') {
+                    currentValue = num;
+                } else {
+                    currentValue += num;
+                }
+                updateDisplay();
+            });
+        });
+
+        // Decimal point
+        document.querySelector('[data-action="decimal"]').addEventListener('click', () => {
+            if (!currentValue.includes('.')) {
+                currentValue += '.';
+                updateDisplay();
+            }
+        });
+
+        // Operator buttons
+        document.querySelectorAll('[data-operator]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const op = btn.dataset.operator;
+                if (previousValue && operation && currentValue !== '0') {
+                    calculate();
+                }
+                previousValue = currentValue;
+                operation = op;
+                equationDisplay.textContent = `${formatNumber(previousValue)} ${op === '*' ? '×' : op === '/' ? '÷' : op}`;
+                currentValue = '0';
+            });
+        });
+
+        // Calculate
+        function calculate() {
+            const prev = parseFloat(previousValue.replace(/,/g, ''));
+            const current = parseFloat(currentValue.replace(/,/g, ''));
+
+            if (isNaN(prev) || isNaN(current)) return;
+
+            let result;
+            switch (operation) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        currentValue = 'Error';
+                        equationDisplay.textContent = '';
+                        updateDisplay();
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+            }
+
+            currentValue = result.toString();
+            operation = null;
+            previousValue = '';
+            equationDisplay.textContent = '';
+            updateDisplay();
+        }
+
+        // Equals button
+        document.querySelector('[data-action="equals"]').addEventListener('click', () => {
+            if (operation && previousValue) {
+                calculate();
+            }
+        });
+
+        // Clear button
+        document.querySelector('[data-action="clear"]').addEventListener('click', () => {
+            currentValue = '0';
+            previousValue = '';
+            operation = null;
+            equationDisplay.textContent = '';
+            updateDisplay();
+        });
+
+        // Toggle sign
+        document.querySelector('[data-action="toggle-sign"]').addEventListener('click', () => {
+            if (currentValue !== '0' && currentValue !== 'Error') {
+                currentValue = (parseFloat(currentValue) * -1).toString();
+                updateDisplay();
+            }
+        });
+
+        // Percent
+        document.querySelector('[data-action="percent"]').addEventListener('click', () => {
+            if (currentValue !== 'Error') {
+                currentValue = (parseFloat(currentValue) / 100).toString();
+                updateDisplay();
+            }
+        });
+
+        // Scientific functions
+        function toRadians(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+
+        document.querySelectorAll('[data-function]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const func = btn.dataset.function;
+                let value = parseFloat(currentValue.replace(/,/g, ''));
+                let result;
+
+                switch (func) {
+                    case 'sin':
+                        result = angleMode === 'deg' ? Math.sin(toRadians(value)) : Math.sin(value);
+                        break;
+                    case 'cos':
+                        result = angleMode === 'deg' ? Math.cos(toRadians(value)) : Math.cos(value);
+                        break;
+                    case 'tan':
+                        result = angleMode === 'deg' ? Math.tan(toRadians(value)) : Math.tan(value);
+                        break;
+                    case 'log':
+                        result = Math.log10(value);
+                        break;
+                    case 'ln':
+                        result = Math.log(value);
+                        break;
+                    case 'pow':
+                        result = Math.pow(value, 2);
+                        break;
+                }
+
+                if (isNaN(result) || !isFinite(result)) {
+                    currentValue = 'Error';
+                } else {
+                    currentValue = result.toString();
+                }
+                updateDisplay();
+            });
+        });
+
+        // Angle mode toggle
+        angleModeBtn.addEventListener('click', () => {
+            angleMode = angleMode === 'deg' ? 'rad' : 'deg';
+            angleModeBtn.textContent = angleMode;
+        });
+
+        // Theme toggle
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') {
+                const btn = document.querySelector(`[data-number="${e.key}"]`);
+                if (btn) btn.click();
+            } else if (e.key === '.') {
+                document.querySelector('[data-action="decimal"]').click();
+            } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+                const btn = document.querySelector(`[data-operator="${e.key}"]`);
+                if (btn) btn.click();
+            } else if (e.key === 'Enter' || e.key === '=') {
+                e.preventDefault();
+                document.querySelector('[data-action="equals"]').click();
+            } else if (e.key === 'Escape') {
+                document.querySelector('[data-action="clear"]').click();
+            }
+        });
+
+        // Initialize
+        updateDisplay();
+    </script>
+</body>
+
+</html>
