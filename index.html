@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>기본 계산기</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#232f48",
+                        "surface-darker": "#1a2336",
+                        "text-secondary": "#92a4c9",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for scientific row if needed on very small screens */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display h-screen flex flex-col overflow-hidden select-none text-slate-900 dark:text-white antialiased">
+<!-- Top Bar / Header -->
+<header class="flex items-center justify-between p-4 pt-10 pb-2 z-10">
+<div class="flex items-center gap-2 px-2">
+<span class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">menu</span>
+<span class="text-sm font-medium text-gray-500 dark:text-text-secondary">Scientific</span>
+</div>
+<div class="flex items-center gap-4 px-2">
+<span class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">history</span>
+<span class="material-symbols-outlined text-gray-500 dark:text-text-secondary cursor-pointer hover:text-primary transition-colors">settings</span>
+</div>
+</header>
+<!-- Display Area -->
+<section class="flex-1 flex flex-col justify-end items-end px-6 pb-6 relative w-full max-w-md mx-auto">
+<!-- Equation/History -->
+<div class="w-full text-right mb-2 opacity-100 transition-opacity">
+<p class="text-gray-500 dark:text-text-secondary text-xl font-normal tracking-wide">1200 + 34.56</p>
+</div>
+<!-- Main Result -->
+<div class="w-full text-right">
+<h1 class="text-6xl font-bold tracking-tight text-slate-900 dark:text-white break-all leading-tight">1,234.56</h1>
+</div>
+</section>
+<!-- Keypad Area -->
+<section class="bg-white dark:bg-background-dark w-full rounded-t-[32px] shadow-[0_-4px_20px_rgba(0,0,0,0.05)] dark:shadow-none pb-8 pt-4 px-4 max-w-md mx-auto">
+<!-- Toggle Bar for History/Keypad (Visual Only) -->
+<div class="w-12 h-1 bg-gray-200 dark:bg-surface-dark rounded-full mx-auto mb-6"></div>
+<!-- Scientific Functions Grid -->
+<div class="grid grid-cols-5 gap-3 mb-4">
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">2nd</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">deg</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">sin</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">cos</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">tan</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">xʸ</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">log</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">ln</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">(</button>
+<button class="h-10 rounded-xl bg-gray-100 dark:bg-surface-darker text-xs font-medium text-slate-700 dark:text-text-secondary hover:brightness-110 active:scale-95 transition-all">)</button>
+</div>
+<!-- Main Numpad Grid -->
+<div class="grid grid-cols-4 gap-3">
+<!-- Row 1: Commands -->
+<button class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all">AC</button>
+<button class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">exposure</span>
+</button>
+<button class="h-[72px] rounded-[20px] bg-gray-200 dark:bg-surface-dark text-lg font-semibold text-primary dark:text-blue-300 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">percent</span>
+</button>
+<button class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
+<span class="text-3xl font-light pb-1">÷</span>
+</button>
+<!-- Row 2 -->
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">7</button>
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">8</button>
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">9</button>
+<button class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">close</span>
+</button>
+<!-- Row 3 -->
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">4</button>
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">5</button>
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">6</button>
+<button class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">remove</span>
+</button>
+<!-- Row 4 -->
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">1</button>
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">2</button>
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">3</button>
+<button class="h-[72px] rounded-[20px] bg-primary/20 dark:bg-surface-dark text-2xl font-semibold text-primary hover:bg-primary hover:text-white active:scale-95 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- Row 5 -->
+<button class="col-span-2 h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white pl-8 text-left hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">0</button>
+<button class="h-[72px] rounded-[20px] bg-white dark:bg-surface-darker shadow-sm dark:shadow-none text-2xl font-semibold text-slate-800 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all">.</button>
+<button class="h-[72px] rounded-[20px] bg-primary shadow-lg shadow-blue-500/30 text-2xl font-semibold text-white hover:bg-blue-600 active:scale-95 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px]">equal</span>
+</button>
+</div>
+</section>
+</body></html>
